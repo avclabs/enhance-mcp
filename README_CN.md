@@ -1,6 +1,6 @@
-# @avclabs/enhance-mcp (Node.js)
+# @avclabs.ai/enhance-mcp (Node.js)
 
-[![npm version](https://badge.fury.io/js/@avclabs%2Fenhance-mcp.svg)](https://www.npmjs.com/package/@avclabs/enhance-mcp)
+[![npm version](https://badge.fury.io/js/@avclabs%2Fenhance-mcp.svg)](https://www.npmjs.com/package/@avclabs.ai/enhance-mcp)
 [![Node.js >=18](https://img.shields.io/badge/node-%3E%3D18-brightgreen.svg)](https://nodejs.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -20,13 +20,13 @@ English | [中文文档](README_CN.md)
 ### 从 npm 安装（推荐）
 
 ```bash
-npm install -g @avclabs/enhance-mcp
+npm install -g @avclabs.ai/enhance-mcp
 ```
 
 或使用 yarn/pnpm：
 ```bash
-yarn global add @avclabs/enhance-mcp
-pnpm add -g @avclabs/enhance-mcp
+yarn global add @avclabs.ai/enhance-mcp
+pnpm add -g @avclabs.ai/enhance-mcp
 ```
 
 ### 从源码安装
@@ -44,7 +44,7 @@ npm run build
 
 全局安装后直接使用：
 ```bash
-enhance-mcp --base-url https://mcp.avc.ai --api-key your-api-key
+avclabs-enhance-mcp --base-url https://mcp.avc.ai --api-key your-api-key
 ```
 
 或使用环境变量：
@@ -52,17 +52,17 @@ enhance-mcp --base-url https://mcp.avc.ai --api-key your-api-key
 # Windows PowerShell
 $env:HTTP_API_BASE_URL="https://mcp.avc.ai"
 $env:HTTP_API_KEY="your-api-key"
-enhance-mcp
+avclabs-enhance-mcp
 
 # Windows CMD
 set HTTP_API_BASE_URL=https://mcp.avc.ai
 set HTTP_API_KEY=your-api-key
-enhance-mcp
+avclabs-enhance-mcp
 
 # macOS/Linux
 export HTTP_API_BASE_URL=https://mcp.avc.ai
 export HTTP_API_KEY=your-api-key
-enhance-mcp
+avclabs-enhance-mcp
 ```
 
 ### 2. 在 Claude Desktop 中配置
@@ -77,7 +77,7 @@ enhance-mcp
 {
   "mcpServers": {
     "video-enhancement": {
-      "command": "enhance-mcp",
+      "command": "avclabs-enhance-mcp",
       "args": [
         "--base-url",
         "https://mcp.avc.ai",
@@ -92,7 +92,7 @@ enhance-mcp
 ### 3. 使用 npx（无需全局安装）
 
 ```bash
-npx @avclabs/enhance-mcp --base-url https://mcp.avc.ai --api-key your-api-key
+npx @avclabs.ai/enhance-mcp --base-url https://mcp.avc.ai --api-key your-api-key
 ```
 
 Claude Desktop 配置：
@@ -102,7 +102,7 @@ Claude Desktop 配置：
     "video-enhancement": {
       "command": "npx",
       "args": [
-        "@avclabs/enhance-mcp",
+        "@avclabs.ai/enhance-mcp",
         "--base-url",
         "https://mcp.avc.ai",
         "--api-key",
