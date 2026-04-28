@@ -12,3 +12,5 @@ coverage/
 test.*
 test
 PUBLISH.md
+package-lock.json
+mcp-publisher.exe
