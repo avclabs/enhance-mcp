@@ -1,6 +1,6 @@
 # @avclabs.ai/enhance-mcp (Node.js)
 
-[中文](README.md) | English
+[中文](https://github.com/avclabs/enhance-mcp/blob/main/README.md) | English
 
 [![npm version](https://badge.fury.io/js/@avclabs%2Fenhance-mcp.svg)](https://www.npmjs.com/package/@avclabs.ai/enhance-mcp)
 [![Node.js >=18](https://img.shields.io/badge/node-%3E%3D18-brightgreen.svg)](https://nodejs.org/)
