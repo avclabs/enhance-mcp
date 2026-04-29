@@ -7,7 +7,7 @@
   "main": "dist/server.js",
   "types": "dist/server.d.ts",
   "bin": {
-    "avclabs-enhance-mcp": "./dist/server.js"
+    "avclabs-enhance-mcp": "dist/server.js"
   },
   "files": [
     "dist",
@@ -37,7 +37,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/avclabs/enhance-mcp.git",
+    "url": "git+https://github.com/avclabs/enhance-mcp.git",
     "directory": "js_client"
   },
   "bugs": {
