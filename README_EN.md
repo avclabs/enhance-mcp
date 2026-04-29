@@ -72,39 +72,9 @@ Paste this (replace `your-api-key`):
 
 Save and run `/mcp` to verify it's loaded.
 
-### 2. Claude Desktop
+### 2. Cursor
 
-**macOS:**
-```bash
-nano ~/Library/Application\ Support/Claude/claude_desktop_config.json
-```
-
-**Windows:**
-```powershell
-notepad $env:AppData\Claude\claude_desktop_config.json
-```
-
-Paste this (replace `your-api-key`):
-
-```json
-{
-  "mcpServers": {
-    "video-enhancement": {
-      "command": "npx",
-      "args": ["-y", "@avclabs.ai/enhance-mcp"],
-      "env": {
-        "HTTP_API_KEY": "your-api-key"
-      }
-    }
-  }
-}
-```
-
-Save and **fully restart** Claude Desktop.
-
-### 3. Cursor
-
-Go to **Settings > MCP Servers > Add New MCP Server**:
+Go to **Settings > Tools & MCPs > Add New MCP Server**:
 
 - **Name**: `video-enhancement`
 - **Type**: `command`
@@ -133,9 +103,8 @@ Or edit `~/.cursor/mcp.json`:
 
 After restarting your client, check if the tools are available:
 
-1. Look for the 🔨 hammer icon in Claude Desktop (bottom right of input box)
-2. Or ask: "What tools do you have available?"
-3. You should see: `create_task`, `get_task_status`, `enhance_video_sync`
+1. Or ask: "What tools do you have available?"
+2. You should see: `create_task`, `get_task_status`, `enhance_video_sync`
 
 ## Configuration Options
 

@@ -72,39 +72,9 @@ AI 会自动完成：
 
 保存后运行 `/mcp` 验证是否加载成功。
 
-### 2. Claude Desktop
+### 2. Cursor
 
-**macOS：**
-```bash
-nano ~/Library/Application\ Support/Claude/claude_desktop_config.json
-```
-
-**Windows：**
-```powershell
-notepad $env:AppData\Claude\claude_desktop_config.json
-```
-
-粘贴以下内容（将 `your-api-key` 替换为实际 API Key）：
-
-```json
-{
-  "mcpServers": {
-    "video-enhancement": {
-      "command": "npx",
-      "args": ["-y", "@avclabs.ai/enhance-mcp"],
-      "env": {
-        "HTTP_API_KEY": "your-api-key"
-      }
-    }
-  }
-}
-```
-
-保存后**完全重启** Claude Desktop。
-
-### 3. Cursor
-
-进入 **设置 > MCP Servers > Add New MCP Server**：
+进入 **设置 > Tools & MCPs > Add New MCP Server**：
 
 - **Name**：`video-enhancement`
 - **Type**：`command`
@@ -133,9 +103,8 @@ notepad $env:AppData\Claude\claude_desktop_config.json
 
 重启客户端后，确认工具是否加载成功：
 
-1. Claude Desktop 输入框右下角查看是否有 🔨 锤子图标
-2. 或直接问 AI："你有哪些可用的工具？"
-3. 应看到：`create_task`、`get_task_status`、`enhance_video_sync`
+1. 或直接问 AI："你有哪些可用的工具？"
+2. 应看到：`create_task`、`get_task_status`、`enhance_video_sync`
 
 ## 配置项
 
