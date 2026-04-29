@@ -229,16 +229,6 @@ npm install -g @avclabs.ai/enhance-mcp
 
 然后在配置中使用 `"command": "avclabs-enhance-mcp"` 配合 `"args": ["--api-key", "your-api-key"]` 。
 
-## 开发
-
-```bash
-git clone https://github.com/avclabs/enhance-mcp.git
-cd js_client
-npm install
-npm run build
-npm run dev
-```
-
 ## License
 
 MIT License - 详见 [LICENSE](LICENSE) 文件
