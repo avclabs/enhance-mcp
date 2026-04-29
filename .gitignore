@@ -8,9 +8,10 @@ dist/
 .idea/
 coverage/
 *.tgz
-.mcpregister_github_token
 test.*
 test
 PUBLISH.md
 package-lock.json
 mcp-publisher.exe
+.mcpregistry_registry_token
+.mcpregistry_github_token

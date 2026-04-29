@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "@avclabs.ai/enhance-mcp",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "HTTP MCP Client-Server for video enhancement API",
   "mcpName": "io.github.avclabs/enhance-mcp",
   "main": "dist/server.js",
@@ -14,7 +14,7 @@
     "config.json",
     "LICENSE",
     "README.md",
-    "README_CN.md"
+    "README_EN.md"
   ],
   "scripts": {
     "build": "tsc",

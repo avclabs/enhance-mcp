@@ -1,149 +1,188 @@
 # @avclabs.ai/enhance-mcp (Node.js)
 
+中文 | [English](README_EN.md)
+
 [![npm version](https://badge.fury.io/js/@avclabs%2Fenhance-mcp.svg)](https://www.npmjs.com/package/@avclabs.ai/enhance-mcp)
 [![Node.js >=18](https://img.shields.io/badge/node-%3E%3D18-brightgreen.svg)](https://nodejs.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-[中文文档](README_CN.md) | English
+基于 MCP 协议的视频增强服务，作为 MCP Client-Server 与 FastAPI HTTP Server 交互。
 
-A video enhancement service based on the MCP protocol, acting as an MCP Client-Server to interact with a FastAPI HTTP Server.
+## 功能
 
-## Features
+提供以下 MCP Tools：
+- `create_task` - 创建视频增强任务（支持 URL 或本地文件上传）
+- `get_task_status` - 查询任务状态
+- `enhance_video_sync` - 同步增强视频（阻塞等待完成）
 
-The following MCP Tools are provided:
-- `create_task` - Create a video enhancement task (supports URL or local file upload)
-- `get_task_status` - Query task status
-- `enhance_video_sync` - Synchronously enhance a video (blocking wait)
+## 前置要求
 
-## Installation
+- **Node.js >= 18**（检查：`node --version`）
+- **API Key**（用于身份认证，请联系服务提供方获取）
 
-### Install from npm (Recommended)
+## 懒人安装（推荐）
 
-```bash
-npm install -g @avclabs.ai/enhance-mcp
+如果你使用的 AI Agent 有确定的 MCP 配置路径，直接复制下面这句发给 AI：
+
+```
+帮我安装 npm 包 @avclabs.ai/enhance-mcp 作为 MCP server。我的 API Key 是：sk-xxxxxxxx。
 ```
 
-Or use yarn/pnpm:
-```bash
-yarn global add @avclabs.ai/enhance-mcp
-pnpm add -g @avclabs.ai/enhance-mcp
+AI 会自动完成：
+1. 检测你使用的 MCP 客户端
+2. 找到配置文件路径
+3. 写入正确的配置
+4. 提示你重启客户端
+
+## 手动安装
+
+无需安装，直接在 MCP 客户端配置中使用 `npx` 运行。
+
+### 1. Claude Code（CLI）
+
+在 Claude Code 中运行：
+
+```
+/mcp
 ```
 
-### Install from Source
+查看输出中 **"User MCPs"** 对应的配置文件路径，然后编辑该文件。
 
-```bash
-git clone https://github.com/avclabs/enhance-mcp.git
-cd js_client
-npm install
-npm run build
-```
+常见路径（如果 `/mcp` 不可用）：
+- **Windows**: `%USERPROFILE%\.claude.json`
+- **macOS**: `~/.claude.json`
+- **Linux**: `~/.claude.json`
+- **旧版/备用**: `~/.claude/mcp.json`
 
-## Usage
+粘贴以下内容（将 `your-api-key` 替换为实际 API Key）：
 
-### 1. Command Line
-
-Use directly after global installation:
-```bash
-avclabs-enhance-mcp --base-url https://mcp.avc.ai --api-key your-api-key
-```
-
-Or use environment variables:
-```bash
-# Windows PowerShell
-$env:HTTP_API_BASE_URL="https://mcp.avc.ai"
-$env:HTTP_API_KEY="your-api-key"
-avclabs-enhance-mcp
-
-# Windows CMD
-set HTTP_API_BASE_URL=https://mcp.avc.ai
-set HTTP_API_KEY=your-api-key
-avclabs-enhance-mcp
-
-# macOS/Linux
-export HTTP_API_BASE_URL=https://mcp.avc.ai
-export HTTP_API_KEY=your-api-key
-avclabs-enhance-mcp
-```
-
-### 2. Configure in Claude Desktop
-
-Edit the Claude Desktop configuration file:
-
-**macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
-
-**Windows**: `%APPDATA%/Claude/claude_desktop_config.json`
-
-```json
-{
-  "mcpServers": {
-    "video-enhancement": {
-      "command": "avclabs-enhance-mcp",
-      "args": [
-        "--base-url",
-        "https://mcp.avc.ai",
-        "--api-key",
-        "your-api-key"
-      ]
-    }
-  }
-}
-```
-
-### 3. Use with npx (No Global Installation Required)
-
-```bash
-npx @avclabs.ai/enhance-mcp --base-url https://mcp.avc.ai --api-key your-api-key
-```
-
-Claude Desktop configuration:
 ```json
 {
   "mcpServers": {
     "video-enhancement": {
       "command": "npx",
-      "args": [
-        "@avclabs.ai/enhance-mcp",
-        "--base-url",
-        "https://mcp.avc.ai",
-        "--api-key",
-        "your-api-key"
-      ]
+      "args": ["-y", "@avclabs.ai/enhance-mcp"],
+      "env": {
+        "HTTP_API_KEY": "your-api-key"
+      }
     }
   }
 }
 ```
 
-## Provided Tools
+保存后运行 `/mcp` 验证是否加载成功。
 
-### create_task
+### 2. Claude Desktop
 
-Create a video enhancement task (asynchronous).
+**macOS：**
+```bash
+nano ~/Library/Application\ Support/Claude/claude_desktop_config.json
+```
 
-**Parameters:**
-- `video_source` (string, required): Video URL or local file path
-- `type` (string, optional): Upload type, defaults to "url"
-  - Options: `"url"` - Network video URL, `"local"` - Local file path
-- `resolution` (string, optional): Target resolution, defaults to 720p
-  - Options: 480p, 540p, 720p, 1080p, 2k
+**Windows：**
+```powershell
+notepad $env:AppData\Claude\claude_desktop_config.json
+```
 
-**Example:**
+粘贴以下内容（将 `your-api-key` 替换为实际 API Key）：
+
 ```json
-// URL mode
 {
-  "video_source": "https://example.com/video.mp4",
-  "type": "url",
-  "resolution": "1080p"
-}
-
-// Local file mode
-{
-  "video_source": "/path/to/local/video.mp4",
-  "type": "local",
-  "resolution": "1080p"
+  "mcpServers": {
+    "video-enhancement": {
+      "command": "npx",
+      "args": ["-y", "@avclabs.ai/enhance-mcp"],
+      "env": {
+        "HTTP_API_KEY": "your-api-key"
+      }
+    }
+  }
 }
 ```
 
-**Returns:**
+保存后**完全重启** Claude Desktop。
+
+### 3. Cursor
+
+进入 **设置 > MCP Servers > Add New MCP Server**：
+
+- **Name**：`video-enhancement`
+- **Type**：`command`
+- **Command**：
+  ```bash
+  env HTTP_API_KEY=your-api-key npx -y @avclabs.ai/enhance-mcp
+  ```
+
+或编辑 `~/.cursor/mcp.json`：
+
+```json
+{
+  "mcpServers": {
+    "video-enhancement": {
+      "command": "npx",
+      "args": ["-y", "@avclabs.ai/enhance-mcp"],
+      "env": {
+        "HTTP_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+## 验证安装
+
+重启客户端后，确认工具是否加载成功：
+
+1. Claude Desktop 输入框右下角查看是否有 🔨 锤子图标
+2. 或直接问 AI："你有哪些可用的工具？"
+3. 应看到：`create_task`、`get_task_status`、`enhance_video_sync`
+
+## 配置项
+
+| 变量名 | 必填 | 默认值 | 说明 |
+|---|---|---|---|
+| `HTTP_API_KEY` | **是** | - | API 认证密钥 |
+| `HTTP_API_BASE_URL` | 否 | `https://mcp.avc.ai` | 服务接口地址 |
+
+### 自定义服务地址
+
+```json
+{
+  "env": {
+    "HTTP_API_BASE_URL": "https://your-endpoint.com",
+    "HTTP_API_KEY": "your-api-key"
+  }
+}
+```
+
+或通过命令行参数：
+```bash
+npx -y @avclabs.ai/enhance-mcp --base-url https://your-endpoint.com --api-key your-api-key
+```
+
+## 使用示例
+
+配置完成后，用自然语言对 AI 说：
+
+> "帮我把这个视频增强到 1080p：https://example.com/video.mp4"
+
+> "把我桌面的 video.mp4 提升到 2k 画质"
+
+AI 会自动调用相应工具完成任务。
+
+## 提供的 Tools
+
+### create_task
+
+创建视频增强任务（异步）。
+
+| 参数 | 类型 | 必填 | 默认值 | 说明 |
+|---|---|---|---|---|
+| `video_source` | string | 是 | - | 视频 URL 或本地文件路径 |
+| `type` | string | 否 | `url` | `url` 或 `local` |
+| `resolution` | string | 否 | `720p` | `480p`、`540p`、`720p`、`1080p`、`2k` |
+
+**返回值：**
 ```json
 {
   "success": true,
@@ -154,56 +193,13 @@ Create a video enhancement task (asynchronous).
 
 ### get_task_status
 
-Query task status.
+查询任务状态。
 
-**Parameters:**
-- `task_id` (string, required): Task ID
+| 参数 | 类型 | 必填 |
+|---|---|---|
+| `task_id` | string | 是 |
 
-**Example:**
-```json
-{
-  "task_id": "task-123-abc"
-}
-```
-
-**Returns:**
-```json
-{
-  "success": true,
-  "task_id": "xxx",
-  "status": "completed",
-  "progress": 100,
-  "video_url": "https://...",
-  "error_message": null,
-  "created_at": "2024-01-01T00:00:00Z",
-  "updated_at": "2024-01-01T00:01:00Z"
-}
-```
-
-### enhance_video_sync
-
-Synchronously enhance a video (blocking wait until completion).
-
-**Parameters:**
-- `video_source` (string, required): Video URL or local file path
-- `type` (string, optional): Upload type, defaults to "url"
-  - Options: `"url"` - Network video URL, `"local"` - Local file path
-- `resolution` (string, optional): Target resolution, defaults to 720p
-- `poll_interval` (number, optional): Polling interval in seconds, defaults to 5
-- `timeout` (number, optional): Timeout in seconds, defaults to 600
-
-**Example:**
-```json
-{
-  "video_source": "https://example.com/video.mp4",
-  "type": "url",
-  "resolution": "1080p",
-  "poll_interval": 5,
-  "timeout": 600
-}
-```
-
-**Returns:**
+**返回值：**
 ```json
 {
   "success": true,
@@ -214,40 +210,66 @@ Synchronously enhance a video (blocking wait until completion).
 }
 ```
 
-## File Upload Notes
+### enhance_video_sync
 
-When `type` is set to `"local"`, the MCP Server will:
-1. Read the local file
-2. Encode the file as base64
-3. Upload it to the video enhancement service
+同步增强视频（阻塞等待完成）。
 
-**Limitations:**
-- Maximum file size: 100MB
+| 参数 | 类型 | 必填 | 默认值 | 说明 |
+|---|---|---|---|---|
+| `video_source` | string | 是 | - | 视频 URL 或本地文件路径 |
+| `type` | string | 否 | `url` | `url` 或 `local` |
+| `resolution` | string | 否 | `720p` | 目标分辨率 |
+| `poll_interval` | number | 否 | `5` | 轮询间隔（秒） |
+| `timeout` | number | 否 | `600` | 超时时间（秒） |
 
-## Environment Variables
+## 文件上传说明
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `HTTP_API_BASE_URL` | FastAPI HTTP Server address | `https://mcp.avc.ai` |
-| `HTTP_API_KEY` | API authentication key | None |
+当 `type` 为 `"local"` 时，MCP Server 会：
+1. 读取本地文件
+2. 通过预签名 URL 直传到 TOS 对象存储
+3. **最大文件大小：100MB**
 
-## Development
+## 故障排查
+
+### "command not found: npx"
+
+安装 Node.js >= 18：https://nodejs.org/
+
+### "错误: 需要提供 --api-key 或设置 HTTP_API_KEY"
+
+API Key 缺失，请检查配置中的 `env.HTTP_API_KEY`。
+
+### MCP Server 在客户端显示红色/错误
+
+查看日志：
+- **Claude Desktop macOS**：`~/Library/Logs/Claude/mcp*.log`
+- **Claude Desktop Windows**：`%APPDATA%\Claude\logs\mcp*.log`
+- **Cursor**：Output 面板 > MCP
+
+### "TOS 上传失败"
+
+通常是签名不匹配，请确认 `HTTP_API_BASE_URL` 和 `HTTP_API_KEY` 正确且有效。
+
+## 全局安装（可选）
+
+如果你不想每次都用 `npx`：
 
 ```bash
-# Clone the repository
+npm install -g @avclabs.ai/enhance-mcp
+```
+
+然后在配置中使用 `"command": "avclabs-enhance-mcp"` 配合 `"args": ["--api-key", "your-api-key"]` 。
+
+## 开发
+
+```bash
 git clone https://github.com/avclabs/enhance-mcp.git
 cd js_client
-
-# Install dependencies
 npm install
-
-# Development mode (auto-compile)
-npm run dev
-
-# Build
 npm run build
+npm run dev
 ```
 
 ## License
 
-MIT License - See [LICENSE](LICENSE) file for details.
+MIT License - 详见 [LICENSE](LICENSE) 文件
