@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "@avclabs.ai/enhance-mcp",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "HTTP MCP Client-Server for video enhancement API",
   "mcpName": "io.github.avclabs/enhance-mcp",
   "main": "dist/server.js",
