@@ -18,7 +18,7 @@ Provides the following MCP Tools:
 ## Prerequisites
 
 - **Node.js >= 18** (check: `node --version`)
-- **API Key** (required for authentication)
+- **API Key** (Create from the console)
 
 ## Lazy Install (Recommended)
 
