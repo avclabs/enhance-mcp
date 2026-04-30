@@ -6,12 +6,12 @@
     "url": "https://github.com/avclabs/enhance-mcp",
     "source": "github"
   },
-  "version": "0.1.8",
+  "version": "0.1.7",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "@avclabs.ai/enhance-mcp",
-      "version": "0.1.8",
+      "version": "0.1.7",
       "transport": {
         "type": "stdio"
       },
